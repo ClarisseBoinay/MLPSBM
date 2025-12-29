@@ -54,7 +54,7 @@ def vraisemblance_edges(apprentissage, list_partition, log_pi, log_mat_lambda_1g
                     list_ll_ij = [ll for t in range(G)]
                 else:
                     for t in range(N):
-                        x = X[t][i, j]
+                        x = apprentissage[t][i, j]
                         if x == 0:
                             ll = log_pi_i + log_pi_j - lambda_Z_i_Z_j
                         if x != 0:
@@ -69,9 +69,9 @@ def vraisemblance_edges(apprentissage, list_partition, log_pi, log_mat_lambda_1g
     return (dico_ij)
 
 def edge_power_row(row,dico_ij,log_pi,log_mat_lambda,mat_lambda,list_partition,G_all):
-    i = row[1]
-    j = row[2]
-    count = row[3]
+    i = int(row[0])
+    j = int(row[1])
+    count = int(row[2])
     list_ll_ij = dico_ij[(i, j)]
     Z_i = list_partition[i]
     Z_j = list_partition[j]
