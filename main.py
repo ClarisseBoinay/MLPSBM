@@ -1,4 +1,3 @@
-agefrom src.vem_svd import vem_svd
 from src.optim_icl import optim_icl
 from src.power import pvalues_edges, pvalues_nodes
 from src.ll_onegraph import ll_onegraph
