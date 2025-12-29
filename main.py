@@ -18,10 +18,10 @@ if __name__ == "__main__":
     
     nb_node : int = 10
     apprentissage : list[np.sp] = [
-        sp.sparse(np.random.randint(600, size=(nb_node, nb_node)),  sp.sparse(np.random.randint(600, size=(nb_node, nb_node)))
+        sp.sparse(np.random.randint(600, size=(nb_node, nb_node))),  sp.sparse(np.random.randint(600, size=(nb_node, nb_node)))
     ]
     test : list[np.sp] = [
-        sp.sparse(np.random.randint(600, size=(nb_node, nb_node)),  sp.sparse(np.random.randint(600, size=(nb_node, nb_node)))
+        sp.sparse(np.random.randint(600, size=(nb_node, nb_node))),  sp.sparse(np.random.randint(600, size=(nb_node, nb_node)))
     ]
     G:int = len(X)
     list_K:list[int] = [5,6,7]
