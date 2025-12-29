@@ -1,3 +1,5 @@
+
+
 import math
 import numpy as np
 from scipy.special import gammaln
@@ -33,8 +35,8 @@ def log_vraisemblance(log_vect_pi, Z, un_X, log_lambda, K, n):
 
 
 def vraisemblance_edges(apprentissage, list_partition, log_pi, log_mat_lambda_1graphe, mat_lambda, n,G):
-    X = apprentissage
     dico_ij = {}
+    G = int(G)
     N = len(apprentissage)
     for i in range(n):
         for j in range(n):
@@ -59,10 +61,10 @@ def vraisemblance_edges(apprentissage, list_partition, log_pi, log_mat_lambda_1g
                             ll = log_pi_i + log_pi_j - lambda_Z_i_Z_j + x * log_lambda_Z_i_Z_j - gammaln(x+1)#math.log(math.factorial(x))
 
                         list_ll_ij.append(ll)
-                    G_missing = G - len(list_ll_ij)
-                    nb_to_add = log_pi_i + log_pi_j - lambda_Z_i_Z_j
-                    to_add = [nb_to_add for m in range(G_missing)]
-                    list_ll_ij += to_add
+                    #G_missing = G - len(list_ll_ij)
+                    #nb_to_add = log_pi_i + log_pi_j - lambda_Z_i_Z_j
+                    #to_add = [nb_to_add for m in range(G_missing)]
+                    #list_ll_ij += to_add
                 dico_ij[(i, j)] = list_ll_ij
     return (dico_ij)
 
@@ -90,10 +92,10 @@ def edge_power_row(row,dico_ij,log_pi,log_mat_lambda,mat_lambda,list_partition,G
             ll = log_pi_i + log_pi_j - lambda_Z_i_Z_j
         if x != 0:
             ll = log_pi_i + log_pi_j - lambda_Z_i_Z_j + x * log_lambda_Z_i_Z_j - gammaln(x+1)
-    ll_0 = log_pi_i + log_pi_j - lambda_Z_i_Z_j
+    #ll_0 = log_pi_i + log_pi_j - lambda_Z_i_Z_j
     pvalue = len([t for t in list_ll_ij if ll >= t])
 
-    pvalue = 100 * pvalue / G_all
+    pvalue = 100 * pvalue / len(list_ll_ij)
     return(pvalue)
 
 def pvalues_edges(df_test, apprentissage, partition, log_pi, log_mat_lambda, mat_lambda,
@@ -130,9 +132,10 @@ def ll_degree_apprentissage(apprentissage, log_tau, tau, mat_lambda, K, n, G):
                 lambda_degre += nb_element_cluster[l] * mat_lambda[partition_i, l]
         list_lambda_degre.append(lambda_degre)
 
-    proba_observee_degre_train = np.zeros((n, G))
-    for i in range(n):
-        proba_observee_degre_train[i,:]=-list_lambda_degre[i]
+    proba_observee_degre_train = np.zeros((n, len(apprentissage)))
+    #proba_observee_degre_train =[]
+#    for i in range(n):
+#        proba_observee_degre_train[i,:]=-list_lambda_degre[i]
     ind_app = 0
     for g in apprentissage:
         degre_observe = np.sum(g, 1)
@@ -155,7 +158,7 @@ def node_power_row(row, list_lambda_degre, proba_observee_degre_train, G):
 
     ll = log_poisson(x, lambda_degre)
     # mat_reject[i,ind_val]=(ll>=(percentile))
-    pvalue = len([val for val in proba_observee_degre_train[i, :] if val < ll]) / G
+    pvalue = len([val for val in proba_observee_degre_train[i, :] if val <= ll]) / len(proba_observee_degre_train[i, :])
     return (pvalue)
 
 
