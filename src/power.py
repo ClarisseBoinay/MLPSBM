@@ -152,7 +152,7 @@ def ll_degree_apprentissage(apprentissage, log_tau, tau, mat_lambda, K, n, G):
 
 
 def node_power_row(row, list_lambda_degre, proba_observee_degre_train, G):
-    i = row[1]
+    i = int(row[1])
     x = row[2]
     lambda_degre = list_lambda_degre[i]
 
