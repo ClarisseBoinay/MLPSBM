@@ -78,9 +78,11 @@ if __name__ == "__main__":
 
 ### power computation degree
 
-    df_degree_test = df_test.groupby(["idx_mat","src"]).size().reset_index(name="count")
+    df_degree_test = df_test.groupby(["idx_mat","src"], as_index=False)['count'].sum()
     
-    df_degree_test['count'] = df_degree_test['count'].fillna(0).astype(int)
+    df_degree_test.to_csv("degree.csv", index=False)
+
+    #df_degree_test['count'] = df_degree_test['count'].fillna(0).astype(int)
     df_degree_test=pvalues_nodes(df_degree_test,apprentissage,log_tau,tau, mat_lambda,K_star,nb_node, G)
     df_degree_test.to_csv("pvalue_degree.csv", index=False)
 
