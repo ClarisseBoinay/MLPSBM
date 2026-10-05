@@ -1,2 +1,2 @@
 # MLPSBM
-Multicouche PSBM avec un nombre fixé de noeuds 
+Implementation of the Multi-Layer Poisson Stochastic Block Model for anomaly detection in dynamic graphs with a fixed node set.
